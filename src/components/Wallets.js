@@ -36,21 +36,23 @@ const Wallets = () => {
     getUserBalances();
   }, []);
   return (
-    <div style={{width: '100%', justifyContent: 'center'}}>
+    <div style={{ width: '100vw', justifyContent: 'center', display: 'flex' }}>
       <div>
-        <div>{`${networks[ethChainId].chainName}`}</div>
-        <div>{`address: ${optimizeAddress(ethAddress)}`} <FaRegCopy style={{cursor: 'pointer'}} onClick={() => navigator.clipboard.writeText(ethAddress)} /></div>
-        <div>{`balance: ${Number(ethBalance).toFixed(4)} ETH`}</div>
-      </div>
-      <div style={{marginTop: '20px'}}>
-        <div>{`${networks[bscChainId].chainName}`}</div>
-        <div>{`address: ${optimizeAddress(ethAddress)}`} <FaRegCopy style={{cursor: 'pointer'}} onClick={() => navigator.clipboard.writeText(ethAddress)} /></div>
-        <div>{`balance: ${Number(bscBalance).toFixed(4)} BNB`}</div>
-      </div>
-      <div style={{marginTop: '20px'}}>
-        <div>{`Solana`}</div>
-        <div>{`address: ${optimizeAddress(solAddress)}`} <FaRegCopy style={{cursor: 'pointer'}} onClick={() => navigator.clipboard.writeText(solAddress)} /></div>
-        <div>{`balance: ${solBalance.toFixed(4)} SOL`}</div>
+        <div>
+          <div>{`${networks[ethChainId].chainName}`}</div>
+          <div>{`address: ${optimizeAddress(ethAddress)}`} <FaRegCopy style={{ cursor: 'pointer' }} onClick={() => navigator.clipboard.writeText(ethAddress)} /></div>
+          <div>{`balance: ${Number(ethBalance).toFixed(4)} ETH`}</div>
+        </div>
+        <div style={{ marginTop: '20px' }}>
+          <div>{`${networks[bscChainId].chainName}`}</div>
+          <div>{`address: ${optimizeAddress(ethAddress)}`} <FaRegCopy style={{ cursor: 'pointer' }} onClick={() => navigator.clipboard.writeText(ethAddress)} /></div>
+          <div>{`balance: ${Number(bscBalance).toFixed(4)} BNB`}</div>
+        </div>
+        <div style={{ marginTop: '20px' }}>
+          <div>{`Solana`}</div>
+          <div>{`address: ${optimizeAddress(solAddress)}`} <FaRegCopy style={{ cursor: 'pointer' }} onClick={() => navigator.clipboard.writeText(solAddress)} /></div>
+          <div>{`balance: ${solBalance.toFixed(4)} SOL`}</div>
+        </div>
       </div>
     </div>
   )

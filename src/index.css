@@ -1,4 +1,4 @@
-body {
+:root {
   margin: '10px';
-  bg_color: var(--tg-theme-bg-color);
+  --bg-color: var(--tg-theme-bg-color);
 }

@@ -36,7 +36,7 @@ const Wallets = () => {
     getUserBalances();
   }, []);
   return (
-    <div>
+    <div style={{width: '100%', justifyContent: 'center'}}>
       <div>
         <div>{`${networks[ethChainId].chainName}`}</div>
         <div>{`address: ${optimizeAddress(ethAddress)}`} <FaRegCopy style={{cursor: 'pointer'}} onClick={() => navigator.clipboard.writeText(ethAddress)} /></div>

@@ -20,8 +20,10 @@ const Wallets = () => {
   }
 
   useEffect(() => {
-    const ethWallet = searchParams.get('ethwallet');
-    const solWallet = searchParams.get('solwallet');
+    const data = searchParams.get('data');
+    const userinfo = JSON.parse(data);
+    const ethWallet = userinfo.ethWallet.publicKey;
+    const solWallet = userinfo.solWallet.publicKey;
     setEthAddress(ethWallet);
     setSolAddress(solWallet);
     async function getUserBalances() {

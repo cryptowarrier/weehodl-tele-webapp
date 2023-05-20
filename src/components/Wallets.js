@@ -120,7 +120,7 @@ const Wallets = () => {
       }
       {
         showAddress && (
-          <div style={{ textAlign: 'center' }}>
+          <div style={{ textAlign: 'center', marginTop: '30px' }}>
             <div>
               <span>Your Address</span>
               <FaRegCopy onClick={() => navigator.clipboard.writeText(walletAddress)} style={{ marginLeft: '10px', cursor: 'pointer' }} />

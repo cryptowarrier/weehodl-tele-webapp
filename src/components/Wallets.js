@@ -125,15 +125,27 @@ const Wallets = () => {
               <span>Your Address</span>
               <FaRegCopy onClick={() => navigator.clipboard.writeText(walletAddress)} style={{ marginLeft: '10px', cursor: 'pointer' }} />
             </div>
-            <div style={{fontSize: '14px'}}>
+            <div style={{ fontSize: '14px' }}>
               {walletAddress}
             </div>
-            <div style={{marginTop: '20px'}}>
+            <div style={{ marginTop: '20px' }}>
               <button onClick={() => setShowAddress(false)}>Back</button>
             </div>
           </div>
         )
       }
+      <div>
+        <div>
+          <input type="text" placeholder="Input Recipient Address" />
+        </div>
+        <div>
+          <input type="text" placeholder="Input Amount" />
+        </div>
+        <div>
+          <button>Send</button>
+          <button>Back</button>
+        </div>
+      </div>
 
     </div>
 

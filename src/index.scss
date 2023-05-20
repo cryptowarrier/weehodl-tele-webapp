@@ -87,3 +87,17 @@ button {
   cursor: pointer;
   margin-inline: 5px;
 }
+
+input{
+  outline:none;
+  display:inline-block;
+  height:34px;
+  vertical-align:middle;
+  bottom:14px;
+  right:9px;
+  border-radius: 22px;
+  width:220px;
+  box-sizing:border-box;
+  padding:0 18px;
+  margin-block: 10px;
+}

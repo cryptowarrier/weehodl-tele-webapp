@@ -134,19 +134,22 @@ const Wallets = () => {
           </div>
         )
       }
-      <div>
-        <div>
-          <input type="text" placeholder="Input Recipient Address" />
-        </div>
-        <div>
-          <input type="text" placeholder="Input Amount" />
-        </div>
-        <div>
-          <button>Send</button>
-          <button>Back</button>
-        </div>
-      </div>
-
+      {
+        showWithdraw && (
+          <div>
+            <div>
+              <input type="text" placeholder="Input Recipient Address" />
+            </div>
+            <div>
+              <input type="text" placeholder="Input Amount" />
+            </div>
+            <div>
+              <button>Send</button>
+              <button onClick={() => setShowWithdraw(false)}>Back</button>
+            </div>
+          </div>
+        )
+      }
     </div>
 
   )

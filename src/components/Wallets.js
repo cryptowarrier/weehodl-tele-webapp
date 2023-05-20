@@ -18,9 +18,9 @@ const Wallets = () => {
 
   const [searchParams] = useSearchParams();
 
-  const optimizeAddress = (addr) => {
-    return `${addr.substring(0, 5)}..${addr.substring(addr.length - 5)}`
-  }
+  // const optimizeAddress = (addr) => {
+  //   return `${addr.substring(0, 5)}..${addr.substring(addr.length - 5)}`
+  // }
 
   // get coin balance
   useEffect(() => {
@@ -125,7 +125,7 @@ const Wallets = () => {
               <span>Your Address</span>
               <FaRegCopy onClick={() => navigator.clipboard.writeText(walletAddress)} style={{ marginLeft: '10px', cursor: 'pointer' }} />
             </div>
-            <div>
+            <div style={{fontSize: '14px'}}>
               {walletAddress}
             </div>
             <div style={{marginTop: '20px'}}>

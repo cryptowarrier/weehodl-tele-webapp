@@ -75,3 +75,15 @@ select:focus + .focus {
   border: 2px solid var(--select-focus);
   border-radius: inherit;
 }
+
+button {
+  color: #ffffff;
+  background-color: #fbb213;
+  font-size: 16px;
+  border: 0px solid #2d63c8;
+  border-radius: 10px;
+  padding: 10px 40px;
+  letter-spacing: 2px;
+  cursor: pointer;
+  margin-inline: 5px;
+}

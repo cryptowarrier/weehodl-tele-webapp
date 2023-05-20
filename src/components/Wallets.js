@@ -13,6 +13,7 @@ const Wallets = () => {
   const [currentNetwork, setCurrentNetwork] = useState(ethChainId);
   const [currentToken, setCurrentToken] = useState(ethTokens[0].address);
   const [tokenList, setTokenList] = useState(ethTokens);
+  const [showAddress, setShowAddress] = useState(true);
 
   const [searchParams] = useSearchParams();
 
@@ -108,7 +109,7 @@ const Wallets = () => {
       </div>
       <div style={{ marginTop: '2em', marginLeft: '0.5em' }}>
         <button>Receive</button>
-        <button>Withdraw</button>
+        <button>Send</button>
       </div>
     </div>
 

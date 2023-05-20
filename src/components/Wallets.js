@@ -5,12 +5,13 @@ import { getSolBalance } from "../utils/solana.util";
 import { networks } from "../utils/network";
 import { bscChainId, ethChainId } from "../constants";
 import { FaRegCopy } from 'react-icons/fa';
+import axios from "axios";
 
 const Wallets = () => {
   const [ethAddress, setEthAddress] = useState('');
   const [solAddress, setSolAddress] = useState('');
-  const [ethBalance, setEthBalance] = useState('0');
-  const [bscBalance, setBscBalance] = useState('0');
+  const [ethBalance, setEthBalance] = useState(0);
+  const [bscBalance, setBscBalance] = useState(0);
   const [solBalance, setSolBalance] = useState(0);
 
   const [searchParams] = useSearchParams();
@@ -20,8 +21,10 @@ const Wallets = () => {
   }
 
   useEffect(() => {
-    const ethWallet = searchParams.get('ethwallet');
-    const solWallet = searchParams.get('solwallet');
+    const data = searchParams.get('data');
+    const userinfo = JSON.parse(data);
+    const ethWallet = userinfo.ethWallet.publicKey;
+    const solWallet = userinfo.solWallet.publicKey;
     setEthAddress(ethWallet);
     setSolAddress(solWallet);
     async function getUserBalances() {

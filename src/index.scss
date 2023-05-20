@@ -16,7 +16,8 @@
 
 select {
   appearance: none;
-  background-color: transparent;
+  background-color: var(--tg-theme-text-color);
+  color: var(--tg-theme-text-color);
   border: none;
   padding: 0 1em 0 0;
   margin: 0;

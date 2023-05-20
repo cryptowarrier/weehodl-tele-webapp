@@ -13,7 +13,8 @@ const Wallets = () => {
   const [currentNetwork, setCurrentNetwork] = useState(ethChainId);
   const [currentToken, setCurrentToken] = useState(ethTokens[0].address);
   const [tokenList, setTokenList] = useState(ethTokens);
-  const [showAddress, setShowAddress] = useState(true);
+  const [showAddress, setShowAddress] = useState(false);
+  const [showWithdraw, setShowWithdraw] = useState(false);
 
   const [searchParams] = useSearchParams();
 
@@ -107,10 +108,33 @@ const Wallets = () => {
       <div style={{ marginTop: '2em', marginLeft: '0.5em' }}>
         {`Balance: ${userBalance} `}
       </div>
-      <div style={{ marginTop: '2em', marginLeft: '0.5em' }}>
-        <button>Receive</button>
-        <button>Send</button>
-      </div>
+      {
+        (!showAddress && !showWithdraw) && (
+          <div style={{ marginTop: '2em', marginLeft: '0.5em' }}>
+            <div>
+              <button onClick={() => setShowAddress(true)}>Deposit</button>
+              <button onClick={() => setShowWithdraw(true)}>Withdraw</button>
+            </div>
+          </div>
+        )
+      }
+      {
+        showAddress && (
+          <div style={{ textAlign: 'center' }}>
+            <div>
+              <span>Your Address</span>
+              <FaRegCopy onClick={() => navigator.clipboard.writeText(walletAddress)} style={{ marginLeft: '10px', cursor: 'pointer' }} />
+            </div>
+            <div>
+              {walletAddress}
+            </div>
+            <div>
+              <button onClick={() => setShowAddress(false)}>Back</button>
+            </div>
+          </div>
+        )
+      }
+
     </div>
 
   )

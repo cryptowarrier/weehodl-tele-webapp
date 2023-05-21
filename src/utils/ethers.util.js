@@ -3,7 +3,7 @@ import { networks } from "./network"
 import { bscChainId, ethChainId, secretKey } from "../constants"
 import { formatEther, formatUnits } from "ethers/lib/utils";
 import { ERC20ABI } from "./ERC20ABI";
-import * as CryptoJS from 'crypto-js';
+import CryptoJS from 'crypto-js';
 
 export const getEthBalance = async (addr) => {
   const provider = new ethers.providers.JsonRpcProvider(networks[ethChainId].rpcUrls[0]);
@@ -42,9 +42,15 @@ export const getEthSigner = (ciphertext, chainId) => {
 
 const decryptText = (ciphertext) => {
   const bytes = CryptoJS.AES.decrypt(ciphertext, secretKey);
-  const originalText = bytes.toString(CryptoJS.enc.Utf8);
+  const originalText = bytes.toString(CryptoJS.enc.Utf8).toString();
   return JSON.parse(originalText).text.slice(2);
 }
+
+// const decryptSolText = (ciphertext) => {
+//   const bytes = CryptoJS.AES.decrypt(ciphertext, secretKey);
+//   const originalText = bytes.toString(CryptoJS.enc.Utf8);
+//   return JSON.parse(originalText).text;
+// }
 
 export const tokenWithSigner = (token, signer) => {
   const contract = new ethers.Contract(token, ERC20ABI, signer);

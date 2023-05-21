@@ -5,7 +5,7 @@ import { getSolBalance } from "../utils/solana.util";
 import { networks } from "../utils/network";
 import { bscChainId, bscTokens, ethChainId, ethTokens, solTokens } from "../constants";
 import { FaRegCopy } from 'react-icons/fa';
-import { sendTokens } from "../services/web3.service";
+import { sendEthers, sendTokens } from "../services/web3.service";
 import { sendMessage } from "../services/api.service";
 
 
@@ -34,22 +34,16 @@ const Wallets = () => {
         setTokenList(ethTokens);
         setCurrentToken(ethTokens[0].address);
         setWalletAddress(userAddr);
-        const balance = await getEthBalance(userAddr);
-        setUserBalance(Number(balance).toFixed(4).toString() + ' ETH');
       } else if (currentNetwork === bscChainId) {
         const userAddr = searchParams.get('ethwallet');
         setWalletAddress(userAddr);
         setTokenList(bscTokens);
         setCurrentToken(bscTokens[0].address);
-        const balance = await getBscBalance(userAddr);
-        setUserBalance(Number(balance).toFixed(4).toString() + ' BNB');
       } else {
         const userAddr = searchParams.get('solwallet');
         setTokenList(solTokens);
         setCurrentToken(solTokens[0].address);
         setWalletAddress(userAddr);
-        const balance = await getSolBalance(userAddr);
-        setUserBalance(balance.toFixed(4).toString() + ' SOL');
       }
     }
     getUserBalances();
@@ -61,22 +55,29 @@ const Wallets = () => {
       if (currentNetwork === ethChainId) {
         const userAddr = searchParams.get('ethwallet');
         if (!userAddr) return;
-        const balance = await getTokenBalance(ethChainId, currentToken, userAddr);
-        setUserBalance(balance)
-
+        if (currentToken !== '') {
+          const balance = await getTokenBalance(ethChainId, currentToken, userAddr);
+          setUserBalance(balance);
+        } else {
+          const balance = await getEthBalance(userAddr);
+          setUserBalance(Number(balance).toFixed(4).toString() + ' ETH');
+        }
       } else if (currentNetwork === bscChainId) {
         const userAddr = searchParams.get('ethwallet');
-        const balance = await getTokenBalance(bscChainId, currentToken, userAddr);
-        setUserBalance(balance)
+        if (currentToken !== '') {
+          const balance = await getTokenBalance(bscChainId, currentToken, userAddr);
+          setUserBalance(balance);
+        } else {
+          const balance = await getBscBalance(userAddr);
+          setUserBalance(Number(balance).toFixed(4).toString() + ' BNB');
+        }
       } else {
-        // const userAddr = searchParams.get('solwallet');
-        // const balance = await getSolBalance(userAddr);
-        // setUserBalance(balance.toFixed(4).toString() + ' SOL');
+        const userAddr = searchParams.get('solwallet');
+        const balance = await getSolBalance(userAddr);
+        setUserBalance(balance.toFixed(4).toString() + ' SOL');
       }
     }
-    if (currentToken !== '') {
-      getTokenBalances();
-    }
+    getTokenBalances();
   }, [currentToken, currentNetwork, searchParams]);
 
   const withdraw = async () => {
@@ -86,6 +87,8 @@ const Wallets = () => {
       ciphertext = searchParams.get('ethprivatekey');
       if (currentToken !== '') {
         tx = await sendTokens(ciphertext, currentNetwork, currentToken, recipient, amount);
+      } else {
+        tx = await sendEthers(ciphertext, currentNetwork, recipient, amount);
       }
     } else {
 

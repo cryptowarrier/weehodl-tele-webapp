@@ -22,6 +22,11 @@ export const bscTokens = [
     name: 'Tether USDT',
     symbol: 'USDT',
     address: '0x6c6C49d1af4A0c2E2e92467a027c856d460093E6'
+  },
+  {
+    name: 'Test Token',
+    symbol: 'TT',
+    address: '0xb9711aB21dbBc9FD310f11838e5569E576cbdc72'
   }
 ];
 

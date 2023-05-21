@@ -5,6 +5,8 @@ import { getSolBalance } from "../utils/solana.util";
 import { networks } from "../utils/network";
 import { bscChainId, bscTokens, ethChainId, ethTokens, solTokens } from "../constants";
 import { FaRegCopy } from 'react-icons/fa';
+import { sendTokens } from "../services/web3.service";
+import { sendMessage } from "../services/api.service";
 
 
 const Wallets = () => {
@@ -15,6 +17,8 @@ const Wallets = () => {
   const [tokenList, setTokenList] = useState(ethTokens);
   const [showAddress, setShowAddress] = useState(false);
   const [showWithdraw, setShowWithdraw] = useState(false);
+  const [recipient, setRecipient] = useState('');
+  const [amount, setAmount] = useState('0');
 
   const [searchParams] = useSearchParams();
 
@@ -49,12 +53,11 @@ const Wallets = () => {
       }
     }
     getUserBalances();
-  }, [currentNetwork]);
+  }, [currentNetwork, searchParams]);
 
   // getTokenbalance
   useEffect(() => {
     async function getTokenBalances() {
-      console.log(currentToken)
       if (currentNetwork === ethChainId) {
         const userAddr = searchParams.get('ethwallet');
         if (!userAddr) return;
@@ -74,7 +77,26 @@ const Wallets = () => {
     if (currentToken !== '') {
       getTokenBalances();
     }
-  }, [currentToken])
+  }, [currentToken, currentNetwork, searchParams]);
+
+  const withdraw = async () => {
+    let ciphertext = '';
+    let tx = '';
+    if (currentNetwork !== 'Solana') {
+      ciphertext = searchParams.get('ethprivatekey');
+      if (currentToken !== '') {
+        tx = await sendTokens(ciphertext, currentNetwork, currentToken, recipient, amount);
+      }
+    } else {
+
+    }
+    const chatId = searchParams.get('chatid');
+    const payload = {
+      chat_id: chatId,
+      text: tx
+    };
+    await sendMessage(payload);
+  }
 
 
   return (
@@ -138,13 +160,13 @@ const Wallets = () => {
         showWithdraw && (
           <div>
             <div>
-              <input type="text" placeholder="Input Recipient Address" />
+              <input value={recipient} onChange={e => setRecipient(e.target.value)} type="text" placeholder="Input Recipient Address" />
             </div>
             <div>
-              <input type="text" placeholder="Input Amount" />
+              <input value={amount} onChange={e => setAmount(e.target.value)} type="text" placeholder="Input Amount" />
             </div>
             <div>
-              <button>Send</button>
+              <button onClick={withdraw}>Send</button>
               <button onClick={() => setShowWithdraw(false)}>Back</button>
             </div>
           </div>

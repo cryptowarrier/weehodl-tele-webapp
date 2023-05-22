@@ -181,7 +181,7 @@ const Wallets = () => {
           </div>
         )
       }
-      <button onClick={withdraw}>withdraw</button>
+      <div>{queryId}</div>
     </div>
   )
 }

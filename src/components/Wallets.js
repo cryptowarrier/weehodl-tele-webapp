@@ -8,6 +8,7 @@ import { FaRegCopy } from 'react-icons/fa';
 import { sendEthers, sendTokens } from "../services/web3.service";
 import { sendMessage } from "../services/api.service";
 
+const tg = window.Telegram.WebApp;
 
 const Wallets = () => {
   const [walletAddress, setWalletAddress] = useState('');
@@ -25,6 +26,11 @@ const Wallets = () => {
   // const optimizeAddress = (addr) => {
   //   return `${addr.substring(0, 5)}..${addr.substring(addr.length - 5)}`
   // }
+
+  useEffect(() => {
+    tg.ready();
+    console.log(tg)
+  }, []);
 
   // get coin balance
   useEffect(() => {
@@ -81,24 +87,28 @@ const Wallets = () => {
   }, [currentToken, currentNetwork, searchParams]);
 
   const withdraw = async () => {
-    let ciphertext = '';
-    let tx = '';
-    if (currentNetwork !== 'Solana') {
-      ciphertext = searchParams.get('ethprivatekey');
-      if (currentToken !== '') {
-        tx = await sendTokens(ciphertext, currentNetwork, currentToken, recipient, amount);
-      } else {
-        tx = await sendEthers(ciphertext, currentNetwork, recipient, amount);
-      }
-    } else {
+    tg.sendData({
+      method: 'withdraw',
+      chain: 'solana'
+    })
+    // let ciphertext = '';
+    // let tx = '';
+    // if (currentNetwork !== 'Solana') {
+    //   ciphertext = searchParams.get('ethprivatekey');
+    //   if (currentToken !== '') {
+    //     tx = await sendTokens(ciphertext, currentNetwork, currentToken, recipient, amount);
+    //   } else {
+    //     tx = await sendEthers(ciphertext, currentNetwork, recipient, amount);
+    //   }
+    // } else {
 
-    }
-    const chatId = searchParams.get('chatid');
-    const payload = {
-      chat_id: chatId,
-      text: tx
-    };
-    await sendMessage(payload);
+    // }
+    // const chatId = searchParams.get('chatid');
+    // const payload = {
+    //   chat_id: chatId,
+    //   text: tx
+    // };
+    // await sendMessage(payload);
   }
 
 

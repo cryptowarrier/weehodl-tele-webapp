@@ -37,7 +37,8 @@ const Wallets = () => {
   }, []);
 
   const withdraw = () => {
-    tg.isExpanded = false;
+    tg.sendDate('send data send data')
+    tg.close();
   }
 
   // get coin balance
@@ -104,7 +105,6 @@ const Wallets = () => {
   const openDeposit = () => {
     setShowAddress(true);
     setShowWithdraw(false);
-    tg.close();
   }
 
 

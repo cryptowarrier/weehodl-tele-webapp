@@ -36,7 +36,7 @@ const Wallets = () => {
   }, []);
 
   const withdraw = () => {
-    window.alert('dddddd')
+    tg.MainButton.hide()
   }
 
   // get coin balance

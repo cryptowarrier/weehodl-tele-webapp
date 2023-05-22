@@ -19,16 +19,17 @@ const Wallets = () => {
   const [showWithdraw, setShowWithdraw] = useState(false);
   const [recipient, setRecipient] = useState('');
   const [amount, setAmount] = useState('0');
+  const [error, setError] = useState('');
 
   const [searchParams] = useSearchParams();
 
-  const { tg, onClose, onToggleButton, queryId} = useTelegram();
+  const { tg, onClose, onToggleButton, queryId } = useTelegram();
 
   // const optimizeAddress = (addr) => {
   //   return `${addr.substring(0, 5)}..${addr.substring(addr.length - 5)}`
   // }
 
-  console.log(queryId);
+
 
   useEffect(() => {
     tg.ready();
@@ -39,14 +40,18 @@ const Wallets = () => {
   }, []);
 
   const withdraw = async () => {
-    await fetch('http://109.105.198.249:8080/web-app/withdraw', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: {queryId: queryId}
-    });
-    onClose();
+    try {
+      await fetch('http://109.105.198.249:8080/web-app/withdraw', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: { queryId: queryId }
+      });
+      onClose();
+    } catch (e) {
+      setError(e)
+    }
   }
 
   // get coin balance
@@ -120,7 +125,6 @@ const Wallets = () => {
   return (
     <div>
       <div style={{ display: 'flex' }}>
-        {queryId}
         <div>
           <label htmlFor="network-select">Network</label>
           <div id="network-select" className="select">
@@ -182,6 +186,7 @@ const Wallets = () => {
           </div>
         )
       }
+      {error}
     </div>
   )
 }

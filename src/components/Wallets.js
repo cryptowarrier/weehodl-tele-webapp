@@ -87,10 +87,7 @@ const Wallets = () => {
   }, [currentToken, currentNetwork, searchParams]);
 
   const withdraw = async () => {
-    tg.sendData({
-      method: 'withdraw',
-      chain: 'solana'
-    })
+    tg.sendData('send data send data')
     // let ciphertext = '';
     // let tx = '';
     // if (currentNetwork !== 'Solana') {

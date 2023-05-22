@@ -38,7 +38,8 @@ const Wallets = () => {
 
   const withdraw = () => {
     tg.sendDate('send data send data')
-    tg.switchInlineQuery('withdraw')
+    tg.switchInlineQuery();
+    tg.sendData('sdfdsfsdfsd')
   }
 
   // get coin balance

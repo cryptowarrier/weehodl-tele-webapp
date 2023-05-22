@@ -37,6 +37,7 @@ const Wallets = () => {
   }, []);
 
   const withdraw = () => {
+    tg.sendData('dddddddddddddddddddddddddd')
     onClose();
   }
 
@@ -96,7 +97,7 @@ const Wallets = () => {
 
   const openWithdraw = () => {
     tg.MainButton.text = 'Withdraw';
-    onToggleButton();
+    tg.MainButton.show();
     setShowWithdraw(true);
     setShowAddress(false);
   }
@@ -104,7 +105,7 @@ const Wallets = () => {
   const openDeposit = () => {
     setShowAddress(true);
     setShowWithdraw(false);
-    onToggleButton();
+    tg.MainButton.hide();
   }
 
 

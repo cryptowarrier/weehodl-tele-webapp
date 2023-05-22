@@ -29,7 +29,6 @@ const Wallets = () => {
 
   useEffect(() => {
     tg.ready();
-    console.log(tg);
     tg.onEvent('mainButtonClicked', withdraw);
     return () => {
       tg.offEvent('mainButtonClicked');
@@ -37,9 +36,7 @@ const Wallets = () => {
   }, []);
 
   const withdraw = () => {
-    tg.sendDate('send data send data')
-    tg.switchInlineQuery();
-    tg.sendData('withdraw')
+    tg.close();
   }
 
   // get coin balance

@@ -89,10 +89,13 @@ const Wallets = () => {
   const openWithdraw = () => {
     tg.MainButton.text = 'Withdraw';
     tg.MainButton.show();
+    showWithdraw(true);
+    showAddress(false);
   }
 
   const openDeposit = () => {
-
+    showAddress(true);
+    showWithdraw(false);
   }
 
 

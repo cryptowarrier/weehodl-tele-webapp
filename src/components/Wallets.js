@@ -29,9 +29,9 @@ const Wallets = () => {
 
   useEffect(() => {
     tg.ready();
-    window.addEventListener(tg.MainButton.onClick, withdraw);
+    window.addEventListener(tg.MainButton.onClick(), withdraw);
     return () => {
-      window.removeEventListener(tg.MainButton.onClick)
+      window.removeEventListener(tg.MainButton.onClick())
     }
   }, []);
 

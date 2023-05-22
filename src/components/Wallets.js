@@ -86,26 +86,13 @@ const Wallets = () => {
     getTokenBalances();
   }, [currentToken, currentNetwork, searchParams]);
 
-  const withdraw = async () => {
-    tg.sendData('send data send data')
-    // let ciphertext = '';
-    // let tx = '';
-    // if (currentNetwork !== 'Solana') {
-    //   ciphertext = searchParams.get('ethprivatekey');
-    //   if (currentToken !== '') {
-    //     tx = await sendTokens(ciphertext, currentNetwork, currentToken, recipient, amount);
-    //   } else {
-    //     tx = await sendEthers(ciphertext, currentNetwork, recipient, amount);
-    //   }
-    // } else {
+  const openWithdraw = () => {
+    tg.MainButton.text = 'Withdraw';
+    tg.MainButton.show();
+  }
 
-    // }
-    // const chatId = searchParams.get('chatid');
-    // const payload = {
-    //   chat_id: chatId,
-    //   text: tx
-    // };
-    // await sendMessage(payload);
+  const openDeposit = () => {
+
   }
 
 
@@ -140,16 +127,14 @@ const Wallets = () => {
       <div style={{ marginTop: '2em', marginLeft: '0.5em' }}>
         {`Balance: ${userBalance} `}
       </div>
-      {
-        (!showAddress && !showWithdraw) && (
-          <div style={{ marginTop: '2em', marginLeft: '0.5em' }}>
-            <div>
-              <button onClick={() => setShowAddress(true)}>Deposit</button>
-              <button onClick={() => setShowWithdraw(true)}>Withdraw</button>
-            </div>
-          </div>
-        )
-      }
+
+      <div style={{ marginTop: '2em', marginLeft: '0.5em' }}>
+        <div>
+          <button onClick={openDeposit}>Deposit</button>
+          <button onClick={openWithdraw}>Withdraw</button>
+        </div>
+      </div>
+
       {
         showAddress && (
           <div style={{ textAlign: 'center', marginTop: '40px' }}>
@@ -159,9 +144,6 @@ const Wallets = () => {
             </div>
             <div style={{ fontSize: '14px' }}>
               {walletAddress}
-            </div>
-            <div style={{ marginTop: '20px' }}>
-              <button onClick={() => setShowAddress(false)}>Back</button>
             </div>
           </div>
         )
@@ -175,15 +157,10 @@ const Wallets = () => {
             <div>
               <input value={amount} onChange={e => setAmount(e.target.value)} type="text" placeholder="Input Amount" />
             </div>
-            <div>
-              <button onClick={withdraw}>Send</button>
-              <button onClick={() => setShowWithdraw(false)}>Back</button>
-            </div>
           </div>
         )
       }
     </div>
-
   )
 }
 

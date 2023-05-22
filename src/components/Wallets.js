@@ -29,8 +29,15 @@ const Wallets = () => {
 
   useEffect(() => {
     tg.ready();
-    console.log(tg)
+    window.addEventListener(tg.MainButton.onClick, withdraw);
+    return () => {
+      window.removeEventListener(tg.MainButton.onClick)
+    }
   }, []);
+
+  const withdraw = () => {
+    window.alert('dddddd')
+  }
 
   // get coin balance
   useEffect(() => {

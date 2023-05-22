@@ -114,6 +114,7 @@ const Wallets = () => {
   return (
     <div>
       <div style={{ display: 'flex' }}>
+        {queryId}
         <div>
           <label htmlFor="network-select">Network</label>
           <div id="network-select" className="select">

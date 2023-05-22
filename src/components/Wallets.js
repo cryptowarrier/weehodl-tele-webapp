@@ -28,6 +28,8 @@ const Wallets = () => {
   //   return `${addr.substring(0, 5)}..${addr.substring(addr.length - 5)}`
   // }
 
+  console.log(queryId);
+
   useEffect(() => {
     tg.ready();
     tg.onEvent('mainButtonClicked', withdraw);

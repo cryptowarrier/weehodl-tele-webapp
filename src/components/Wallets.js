@@ -19,7 +19,6 @@ const Wallets = () => {
   const [showWithdraw, setShowWithdraw] = useState(false);
   const [recipient, setRecipient] = useState('');
   const [amount, setAmount] = useState('0');
-  const [error, setError] = useState('');
 
   const [searchParams] = useSearchParams();
 
@@ -40,7 +39,6 @@ const Wallets = () => {
   }, []);
 
   const withdraw = async () => {
-    try {
       fetch('http://109.105.198.249:8080/web-app/withdraw', {
         method: 'POST',
         headers: {
@@ -49,9 +47,6 @@ const Wallets = () => {
         body: { queryId: queryId }
       });
       onClose();
-    } catch (e) {
-      setError(e)
-    }
   }
 
   // get coin balance
@@ -186,7 +181,7 @@ const Wallets = () => {
           </div>
         )
       }
-      {error}
+      <button onClick={withdraw}>withdraw</button>
     </div>
   )
 }

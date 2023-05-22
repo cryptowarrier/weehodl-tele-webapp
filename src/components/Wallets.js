@@ -33,7 +33,7 @@ const Wallets = () => {
   }, []);
 
   const withdraw = () => {
-    tg.MainButton.hide()
+    tg.isExpanded = false;
   }
 
   // get coin balance

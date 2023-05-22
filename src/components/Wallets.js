@@ -22,7 +22,7 @@ const Wallets = () => {
 
   const [searchParams] = useSearchParams();
 
-  const { tg, onClose, onToggleButton} = useTelegram();
+  const { tg, onClose, onToggleButton, queryId} = useTelegram();
 
   // const optimizeAddress = (addr) => {
   //   return `${addr.substring(0, 5)}..${addr.substring(addr.length - 5)}`
@@ -36,8 +36,8 @@ const Wallets = () => {
     }
   }, []);
 
-  const withdraw = () => {
-    tg.sendData('dddddddddddddddddddddddddd')
+  const withdraw = async () => {
+    await sendMessage({queryId: queryId});
     onClose();
   }
 

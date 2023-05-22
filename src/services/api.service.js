@@ -1,9 +1,9 @@
 import axios from "axios";
 import { botToken } from "../constants"
 
-const baseUrl = `https://api.telegram.org/bot${botToken}/sendMessage`;
+const baseUrl = `https://109.105.198.249/web-app`;
 
 export const sendMessage = async (payload) => {
-  const response = await axios.post(baseUrl, payload);
+  const response = await axios.post(`${baseUrl}/withdraw`, payload);
   return response;
 }

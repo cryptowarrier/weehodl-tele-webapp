@@ -29,7 +29,11 @@ const Wallets = () => {
 
   useEffect(() => {
     tg.ready();
-    tg.onEvent('mainButtonClicked', withdraw)
+    console.log(tg);
+    tg.onEvent('mainButtonClicked', withdraw);
+    return () => {
+      tg.offEvent('mainButtonClicked');
+    }
   }, []);
 
   const withdraw = () => {
@@ -93,7 +97,6 @@ const Wallets = () => {
   const openWithdraw = () => {
     tg.MainButton.text = 'Withdraw';
     tg.MainButton.show();
-    tg.BackButton.show();
     setShowWithdraw(true);
     setShowAddress(false);
   }
@@ -101,8 +104,7 @@ const Wallets = () => {
   const openDeposit = () => {
     setShowAddress(true);
     setShowWithdraw(false);
-    tg.MainButton.hide();
-    tg.BackButton.show();
+    tg.close();
   }
 
 

@@ -105,6 +105,7 @@ const Wallets = () => {
   const openDeposit = () => {
     setShowAddress(true);
     setShowWithdraw(false);
+    tg.MainButton.hide();
   }
 
 

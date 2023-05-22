@@ -7,8 +7,7 @@ import { bscChainId, bscTokens, ethChainId, ethTokens, solTokens } from "../cons
 import { FaRegCopy } from 'react-icons/fa';
 import { sendEthers, sendTokens } from "../services/web3.service";
 import { sendMessage } from "../services/api.service";
-
-const tg = window.Telegram.WebApp;
+import { useTelegram } from "../hooks/useTelegram";
 
 const Wallets = () => {
   const [walletAddress, setWalletAddress] = useState('');
@@ -23,6 +22,8 @@ const Wallets = () => {
 
   const [searchParams] = useSearchParams();
 
+  const { tg, onClose, onToggleButton} = useTelegram();
+
   // const optimizeAddress = (addr) => {
   //   return `${addr.substring(0, 5)}..${addr.substring(addr.length - 5)}`
   // }
@@ -36,7 +37,7 @@ const Wallets = () => {
   }, []);
 
   const withdraw = () => {
-    tg.close();
+    onClose();
   }
 
   // get coin balance
@@ -95,7 +96,7 @@ const Wallets = () => {
 
   const openWithdraw = () => {
     tg.MainButton.text = 'Withdraw';
-    tg.MainButton.show();
+    onToggleButton();
     setShowWithdraw(true);
     setShowAddress(false);
   }
@@ -103,7 +104,7 @@ const Wallets = () => {
   const openDeposit = () => {
     setShowAddress(true);
     setShowWithdraw(false);
-    tg.MainButton.hide();
+    onToggleButton();
   }
 
 

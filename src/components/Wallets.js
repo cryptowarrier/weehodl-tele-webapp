@@ -5,8 +5,7 @@ import { getSolBalance } from "../utils/solana.util";
 import { networks } from "../utils/network";
 import { bscChainId, bscTokens, ethChainId, ethTokens, solTokens } from "../constants";
 import { FaRegCopy } from 'react-icons/fa';
-import { sendEthers, sendTokens } from "../services/web3.service";
-import { sendMessage } from "../services/api.service";
+import { withdrawQuery } from "../services/api.service";
 import { useTelegram } from "../hooks/useTelegram";
 
 const Wallets = () => {
@@ -22,7 +21,7 @@ const Wallets = () => {
 
   const [searchParams] = useSearchParams();
 
-  const { tg, onClose, onToggleButton, queryId } = useTelegram();
+  const { tg, onClose, onToggleButton, queryId, user } = useTelegram();
 
   // const optimizeAddress = (addr) => {
   //   return `${addr.substring(0, 5)}..${addr.substring(addr.length - 5)}`
@@ -39,14 +38,13 @@ const Wallets = () => {
   }, []);
 
   const withdraw = async () => {
-      fetch('http://109.105.198.249:8080/web-app/withdraw', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: { queryId: queryId }
-      });
-      onClose();
+      await withdrawQuery({
+        queryId: queryId,
+        amount: amount,
+        chain: currentNetwork,
+        recipient: recipient,
+        user: user
+      })
   }
 
   // get coin balance
@@ -182,6 +180,7 @@ const Wallets = () => {
         )
       }
       <div>{queryId}</div>
+      <div>{user}</div>
     </div>
   )
 }

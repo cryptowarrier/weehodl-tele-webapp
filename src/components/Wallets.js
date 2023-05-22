@@ -41,7 +41,7 @@ const Wallets = () => {
 
   const withdraw = async () => {
     try {
-      await fetch('http://109.105.198.249:8080/web-app/withdraw', {
+      fetch('http://109.105.198.249:8080/web-app/withdraw', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

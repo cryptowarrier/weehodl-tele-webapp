@@ -43,7 +43,7 @@ export const factory = (chainId) => {
 }
 
 export const projectContract = (chainId, address) => {
-  const provider = new ethers.JsonRpcProvider(networks[chainId].rpcUrls[0]);
+  const provider = new ethers.providers.JsonRpcProvider(networks[chainId].rpcUrls[0]);
   const contract = new ethers.Contract(address, Project.abi, provider);
   return contract;
 }

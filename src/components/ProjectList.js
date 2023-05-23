@@ -64,8 +64,7 @@ const ProjectList = () => {
     await investQuery({
       queryId: queryId,
       amount: amount,
-      chain: currentProject.chain,
-      projectId: currentProject.projectId,
+      projectId: currentProject._id,
       user: user.id
     });
   }

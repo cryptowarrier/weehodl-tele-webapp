@@ -180,7 +180,7 @@ const Wallets = () => {
         )
       }
       <div>{queryId}</div>
-      <div>{user}</div>
+      <div>{JSON.stringify(user)}</div>
     </div>
   )
 }

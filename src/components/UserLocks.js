@@ -21,8 +21,14 @@ const UserLocks = () => {
 
   useEffect(() => {
     if(!!currentLock) {
-      tg.MainButton.text = "Invest";
+      tg.MainButton.text = "Claim";
       tg.MainButton.show();
+      const now = Math.floor(new Date().getTime() / 1000);
+      if (currentLock.unlockTime > now) {
+        tg.MainButton.disable();
+      } else {
+        tg.MainButton.enable();
+      }
     } else {
       tg.MainButton.hide();
     }

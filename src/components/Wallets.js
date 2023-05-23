@@ -181,9 +181,11 @@ const Wallets = () => {
         )
       }
       <div>{queryId}</div>
-      <div>{JSON.stringify(user)}</div>
+      <div>{user.id}</div>
       <div>{currentNetwork}</div>
       <div>{currentToken}</div>
+      <div>{amount}</div>
+      <div>{recipient}</div>
     </div>
   )
 }

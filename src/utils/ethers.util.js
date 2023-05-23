@@ -3,7 +3,9 @@ import { networks } from "./network"
 import { bscChainId, ethChainId, secretKey } from "../constants"
 import { formatEther, formatUnits } from "ethers/lib/utils";
 import { ERC20ABI } from "./ERC20ABI";
-import CryptoJS from 'crypto-js';
+import { contracts } from '../constants/contracts';
+import Factory from './contracts/ProjectFactory.sol/ProjectFactory.json';
+import Project from './contracts/Project.sol/Project.json';
 
 export const getEthBalance = async (addr) => {
   const provider = new ethers.providers.JsonRpcProvider(networks[ethChainId].rpcUrls[0]);
@@ -33,26 +35,15 @@ export const getTokenDecimals = async (chainId, tokenAddress) => {
   return Number(decimals);
 }
 
-export const getEthSigner = (ciphertext, chainId) => {
-  const privateKey = decryptText(ciphertext);
+export const factory = (chainId) => {
+  const address = contracts[chainId].factory;
   const provider = new ethers.providers.JsonRpcProvider(networks[chainId].rpcUrls[0]);
-  const signer = new ethers.Wallet(privateKey, provider);
-  return signer;
+  const contract = new ethers.Contract(address, Factory.abi, provider);
+  return contract;
 }
 
-const decryptText = (ciphertext) => {
-  const bytes = CryptoJS.AES.decrypt(ciphertext, secretKey);
-  const originalText = bytes.toString(CryptoJS.enc.Utf8).toString();
-  return JSON.parse(originalText).text.slice(2);
-}
-
-// const decryptSolText = (ciphertext) => {
-//   const bytes = CryptoJS.AES.decrypt(ciphertext, secretKey);
-//   const originalText = bytes.toString(CryptoJS.enc.Utf8);
-//   return JSON.parse(originalText).text;
-// }
-
-export const tokenWithSigner = (token, signer) => {
-  const contract = new ethers.Contract(token, ERC20ABI, signer);
+export const projectContract = (chainId, address) => {
+  const provider = new ethers.JsonRpcProvider(networks[chainId].rpcUrls[0]);
+  const contract = new ethers.Contract(address, Project.abi, provider);
   return contract;
 }

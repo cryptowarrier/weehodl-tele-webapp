@@ -102,3 +102,14 @@ input{
   margin-block: 10px;
   border-width: 1px;
 }
+
+.project-card {
+  border: 1px solid #fbb213;
+  width: 30%;
+  height: 200px;
+  margin: 5px;
+  border-radius: 5px;
+  padding: 5px;
+  cursor: pointer;
+  overflow: hidden;
+}

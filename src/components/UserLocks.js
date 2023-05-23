@@ -76,7 +76,7 @@ const UserLocks = () => {
           </div>
         )
       }
-      <div>{JSON.stringify(locks)}</div>
+      {/* <div>{JSON.stringify(locks)}</div> */}
     </div>
   );
 }

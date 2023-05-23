@@ -4,6 +4,7 @@ import { networks } from "../utils/network";
 import { factory, projectContract } from "../utils/ethers.util";
 import { formatUnits } from "ethers/lib/utils";
 import { useTelegram } from "../hooks/useTelegram";
+import { investQuery } from "../services/api.service";
 
 const ProjectList = () => {
   const [projects, setProjects] = useState([]);
@@ -60,7 +61,13 @@ const ProjectList = () => {
   }, [currentProject]);
 
   const invest = async () => {
-    
+    await investQuery({
+      queryId: queryId,
+      amount: amount,
+      chain: currentProject.chain,
+      projectId: currentProject.projectId,
+      user: user.id
+    });
   }
 
 
@@ -86,7 +93,8 @@ const ProjectList = () => {
             <div style={{ fontSize: '18px', fontWeight: 'bold' }}>{currentProject.name}</div>
             <div style={{margin: '20px'}}>
               <div>{`Investors: ${projectInfo.buyers}`}</div>
-              <div>{`Sold: ${projectInfo.sold} ${projectInfo.tokenSymbol}`}</div>
+              <div>{`Total Sold: ${projectInfo.sold} ${projectInfo.tokenSymbol}`}</div>
+              <div>{`Total Collected: ${projectInfo.collected} ${projectInfo.tokenSymbol}`}</div>
               <div>{`Min Single Ticket Amount: ${currentProject.minSpend} ${projectInfo.baseSymbol}`}</div>
               <div>{`Max Single Ticket Amount: ${currentProject.maxSpend} ${projectInfo.baseSymbol}`}</div>
             </div>
@@ -95,9 +103,9 @@ const ProjectList = () => {
               <div style={{ flexGrow: 1 }}></div>
               <div>{`${projectInfo.poolAmount} ${projectInfo.baseSymbol}`}</div>
             </div>
-            <div>
+            {/* <div>
               <progress style={{ width: '100%' }} max={projectInfo.poolAmount} value={Number(projectInfo.collected)} />
-            </div>
+            </div> */}
             <div>
               <input value={amount} onChange={e => setAmount(e.target.value)} placeholder="input invest amount" type="text" />
             </div>

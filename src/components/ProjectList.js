@@ -40,7 +40,6 @@ const ProjectList = () => {
         const collected = formatUnits(status.TOTAL_BASE_COLLECTED, baseDecimals);
         const sold = Number(status.TOTAL_TOKENS_SOLD);
         const poolAmount = Number(currentProject.poolAmount);
-        console.log(status)
         setProjectInfo({
           collected: collected,
           sold: sold,

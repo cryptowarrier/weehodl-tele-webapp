@@ -28,11 +28,25 @@ export const getTokenBalance = async (chainId, tokenAddress, wallet) => {
   return formatUnits(balance, Number(decimals)) + symbol;
 }
 
+export const getTokenSymbol = async (chainId, tokenAddress) => {
+  const provider = new ethers.providers.JsonRpcProvider(networks[chainId].rpcUrls[0]);
+  const token = new ethers.Contract(tokenAddress, ERC20ABI, provider);
+  const symbol = await token.symbol();
+  return symbol;
+}
+
 export const getTokenDecimals = async (chainId, tokenAddress) => {
   const provider = new ethers.providers.JsonRpcProvider(networks[chainId].rpcUrls[0]);
   const token = new ethers.Contract(tokenAddress, ERC20ABI, provider);
   const decimals = await token.decimals();
   return Number(decimals);
+}
+
+export const getTokenName = async (chainId, tokenAddress) => {
+  const provider = new ethers.providers.JsonRpcProvider(networks[chainId].rpcUrls[0]);
+  const token = new ethers.Contract(tokenAddress, ERC20ABI, provider);
+  const name = await token.name();
+  return name;
 }
 
 export const factory = (chainId) => {

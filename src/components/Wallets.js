@@ -43,8 +43,9 @@ const Wallets = () => {
         amount: amount,
         chain: currentNetwork,
         recipient: recipient,
-        user: user
-      })
+        user: user.id,
+        token: currentToken
+      });
   }
 
   // get coin balance
@@ -181,6 +182,8 @@ const Wallets = () => {
       }
       <div>{queryId}</div>
       <div>{JSON.stringify(user)}</div>
+      <div>{currentNetwork}</div>
+      <div>{currentToken}</div>
     </div>
   )
 }

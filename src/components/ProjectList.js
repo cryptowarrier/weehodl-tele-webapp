@@ -3,6 +3,7 @@ import { Link, useSearchParams } from "react-router-dom";
 import { networks } from "../utils/network";
 import { factory, projectContract } from "../utils/ethers.util";
 import { formatUnits } from "ethers/lib/utils";
+import { useTelegram } from "../hooks/useTelegram";
 
 const ProjectList = () => {
   const [projects, setProjects] = useState([]);
@@ -11,9 +12,16 @@ const ProjectList = () => {
   const [amount, setAmount] = useState(0);
 
   const [searchParams] = useSearchParams();
+
+  const { tg, queryId, user} = useTelegram();
   useEffect(() => {
     const jsonProjects = JSON.parse(searchParams.get('projects'));
     setProjects(jsonProjects);
+    tg.ready();
+    tg.onEvent('mainButtonClicked', invest);
+    return () => {
+      tg.offEvent('mainButtonClicked');
+    }
   }, []);
 
   useEffect(() => {
@@ -43,11 +51,21 @@ const ProjectList = () => {
       }
     }
     getProjectInfo();
+    if(!!currentProject) {
+      tg.MainButton.text = "Invest";
+      tg.MainButton.show();
+    } else {
+      tg.MainButton.hide();
+    }
   }, [currentProject]);
+
+  const invest = async () => {
+    
+  }
 
 
   return (
-    <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+    <div style={{ display: 'flex', flexWrap: 'wrap', padding: '10px' }}>
       {
         !currentProject && projects.map((project, i) => (
           <div onClick={() => setCurrentProject(project)} className="project-card" key={i}>
@@ -84,7 +102,6 @@ const ProjectList = () => {
               <input value={amount} onChange={e => setAmount(e.target.value)} placeholder="input invest amount" type="text" />
             </div>
             <div>
-              <button >Invest</button>
               <button onClick={() => setCurrentProject()}>Back</button>
             </div>
           </div>

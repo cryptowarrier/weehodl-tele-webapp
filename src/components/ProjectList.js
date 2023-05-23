@@ -97,11 +97,11 @@ const ProjectList = () => {
               <div>{`Min Single Ticket Amount: ${currentProject.minSpend} ${projectInfo.baseSymbol}`}</div>
               <div>{`Max Single Ticket Amount: ${currentProject.maxSpend} ${projectInfo.baseSymbol}`}</div>
             </div>
-            <div style={{ display: 'flex', marginTop: '20px' }}>
+            {/* <div style={{ display: 'flex', marginTop: '20px' }}>
               <div>{`0 ${projectInfo.baseSymbol}`}</div>
               <div style={{ flexGrow: 1 }}></div>
               <div>{`${projectInfo.poolAmount} ${projectInfo.baseSymbol}`}</div>
-            </div>
+            </div> */}
             {/* <div>
               <progress style={{ width: '100%' }} max={projectInfo.poolAmount} value={Number(projectInfo.collected)} />
             </div> */}
@@ -111,6 +111,7 @@ const ProjectList = () => {
             <div>
               <button onClick={() => setCurrentProject()}>Back</button>
             </div>
+            <div>{queryId}</div>
           </div>
         )
       }

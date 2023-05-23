@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { networks } from "../utils/network";
 
 const ProjectList = () => {
@@ -14,16 +14,18 @@ const ProjectList = () => {
     <div style={{ display: 'flex', flexWrap: 'wrap' }}>
       {
         projects.map((project, i) => (
-          <div className="project-card" key={i}>
-            <div>{ project.name }</div>
-            <div>{`network: ${project.chain === 'Solana' ? 'Solana' : networks[project.chain].chainName}`}</div>
-            <div>token</div>
-            <div>{ `address: ${project.token.address}`}</div>
-            <div>{ `symbol: ${project.token.name}`}</div>
-            <div>{ `decimals: ${project.token.decimals}`}</div>
-            <div>Accepted Currency</div>
-            <div>{project.baseToken.name}</div>
-          </div>
+          <Link style={{textDecoration: 'none'}} to={`/project?data=${encodeURIComponent(project)}`}>
+            <div className="project-card" key={i}>
+              <div>{project.name}</div>
+              <div>{`network: ${project.chain === 'Solana' ? 'Solana' : networks[project.chain].chainName}`}</div>
+              <div>token</div>
+              <div>{`address: ${project.token.address}`}</div>
+              <div>{`symbol: ${project.token.name}`}</div>
+              <div>{`decimals: ${project.token.decimals}`}</div>
+              <div>Accepted Currency</div>
+              <div>{project.baseToken.name}</div>
+            </div>
+          </Link>
         ))
       }
     </div>

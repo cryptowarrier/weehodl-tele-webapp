@@ -4,6 +4,7 @@ import { networks } from "../utils/network";
 import { getTokenName, getTokenSymbol } from "../utils/ethers.util";
 import { timestampToDateString } from "../utils/time.util";
 import { useTelegram } from "../hooks/useTelegram";
+import { claimQuery } from "../services/api.service";
 
 const UserLocks = () => {
   const [locks, setLocks] = useState([]);
@@ -17,6 +18,11 @@ const UserLocks = () => {
   useEffect(() => {
     const jsonLocks = JSON.parse(searchParams.get('data'));
     setLocks(jsonLocks);
+    tg.ready();
+    tg.onEvent('mainButtonClicked', claim);
+    return () => {
+      tg.offEvent('mainButtonClicked');
+    }
   }, []);
 
   useEffect(() => {
@@ -33,6 +39,16 @@ const UserLocks = () => {
       tg.MainButton.hide();
     }
   }, [currentLock]);
+
+  const claim = async () => {
+    await claimQuery({
+      queryId: queryId,
+      user: user.id,
+      chainId: currentLock.chainId,
+      address: currentLock.address,
+      index: currentLock.index
+    })
+  }
 
   return (
     <div style={{ display: 'flex', flexWrap: 'wrap', padding: '10px' }}>
@@ -53,10 +69,14 @@ const UserLocks = () => {
             <div>Unlock Time: { timestampToDateString(currentLock.unlockTime)}</div>
             <div>Token: {currentLock.token}</div>
             <div>Amount: {currentLock.amount}</div>
+            <div>
+              <button onClick={() => setCurrentLock()}>Back</button>
+            </div>
+            <div>{queryId}</div>
           </div>
         )
       }
-      {/* <div>{JSON.stringify(locks)}</div> */}
+      <div>{JSON.stringify(locks)}</div>
     </div>
   );
 }

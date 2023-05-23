@@ -11,3 +11,8 @@ export const investQuery = async (payload) => {
   const response = await axios.post(`${baseUrl}/invest`, payload);
   return response;
 }
+
+export const claimQuery = async (payload) => {
+  const response = await axios.post(`${baseUrl}/claim`, payload);
+  return response;
+}

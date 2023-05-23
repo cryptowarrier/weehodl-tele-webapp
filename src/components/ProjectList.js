@@ -14,8 +14,8 @@ const ProjectList = () => {
     <div style={{ display: 'flex', flexWrap: 'wrap' }}>
       {
         projects.map((project, i) => (
-          <Link style={{textDecoration: 'none'}} to={`/project?data=${encodeURIComponent(project)}`}>
-            <div className="project-card" key={i}>
+          <Link className="project-card" style={{textDecoration: 'none'}} to={`/project?data=${encodeURIComponent(project)}`}>
+            <div key={i}>
               <div>{project.name}</div>
               <div>{`network: ${project.chain === 'Solana' ? 'Solana' : networks[project.chain].chainName}`}</div>
               <div>token</div>
